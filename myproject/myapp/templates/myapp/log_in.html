@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kindhelp - Вхід</title>
+    <link rel="stylesheet" href="../../static/css/log_in.css">
+</head>
+<body>
+    <div class="login-container">
+        <a a href="{% url 'home' %}" class="back-link">← Повернутися на головну сторінку</a>
+        
+        <div class="login-box">
+            <div class="logo-container">
+                <img src="../../static/img/logo.png" alt="Kindhelp Logo" class="logo">
+            </div>
+            
+            <h1>Увійти</h1>
+            
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="email">Адреса електронної пошти</label>
+                    <input type="email" id="email" placeholder="Введіть вашу електронну пошту...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" placeholder="Введіть ваш пароль...">
+                    <a href="#" class="forgot-password">Забули пароля?</a>
+                </div>
+                
+                <button type="submit" class="login-btn">Продовжити</button>
+            </form>
+            
+            <div class="divider">
+                <span>Або</span>
+            </div>
+            
+            <button class="google-btn">
+                <img src="../../static/img/google.png" alt="Google Icon">
+                <span>Увійти з Google</span>
+            </button>
+            
+            <div class="register-link">
+                Ще не маєш облікового запису? <a href="{%url 'log_in'%}">Реєстрація</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

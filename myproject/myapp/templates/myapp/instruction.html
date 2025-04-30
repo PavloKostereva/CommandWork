@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Мій сайт</title>
+    <link rel="stylesheet" href="../../static/css/instruction.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-bg">
+          <img src="../../static/img/logo.png" alt="Іконка" />
+        </div>
+      </div>
+      <nav class="navigation">
+        <ul>
+          <li><a href="{% url 'home' %}">Головна</a></li>
+          <li><a href="{% url 'about' %}">Про нас</a></li>
+          <li><a href="{% url 'instruction' %}">Інструкція/Тех-підтримка</a></li>
+          <li><a href="{% url 'zayavki' %}">Заявки</a></li>
+        </ul>
+      </nav>
+      <div class="profile">
+        <a href="{% url 'profile' %}">Профіль</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="instructions-section">
+        <h2>Інструкція по користуванню даним сайтом</h2>
+        <div class="instruction-blocks">
+          <div class="instruction">
+            <h3>Для користувача</h3>
+            <p>
+              Тут розміщується текст інструкції для користувача. Наприклад, як
+              зареєструватися, подати запит, знайти волонтера тощо.
+            </p>
+          </div>
+          <div class="instruction">
+            <h3>Для волонтера</h3>
+            <p>
+              Тут розміщується текст інструкції для волонтера. Наприклад, як
+              стати волонтером, переглядати запити, підтвердити допомогу тощо.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="support-section">
+        <h2>Технічна підтримка</h2>
+        <div class="support-container">
+          <div class="support-info">
+            <h3>Контактна інформація</h3>
+            <p><strong>Гаряча лінія:</strong> +38 (0800) 123 456</p>
+            <p><strong>Email:</strong> support@kindhelp.org</p>
+            <p><strong>Телефон:</strong> +38 (050) 987 65 43</p>
+            <p>
+              <strong>Графік роботи:</strong><br />Пн-Пт: 09:00–18:00<br />Сб-Нд:
+              вихідні
+            </p>
+          </div>
+
+          <div class="support-form">
+            <h3>Форма зворотного зв’язку</h3>
+            <form>
+              <input
+                type="text"
+                name="name"
+                placeholder="Ім'я та прізвище"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Електронна пошта"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Контактний номер телефону (необов’язково)"
+              />
+              <textarea
+                name="message"
+                placeholder="Опишіть проблему"
+                rows="5"
+                required
+              ></textarea>
+              <button type="submit">Надіслати</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-logo">
+            <div class="logo-bg">
+              <img src="../../static/img/logo.png" alt="Іконка" />
+            </div>
+          </div>
+          <div class="social-contacts">
+            <div class="social-links">
+              <a href="#">Facebook</a> | <a href="#">Instagram</a> |
+              <a href="#">Telegram</a>
+            </div>
+            <p>Email: support@kindhelp.org</p>
+            <p>Телефон: +38 (050) 123 45 67</p>
+            <p>Адреса: м. Київ, вул. Доброти, 1</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-links">
+            <a href="{% url 'about' %}">Про нас</a>
+            <a href="{%url 'instruction'%}">Часті запитання</a>
+            <a href="{% url 'profile' %}">Стати волонтером</a>
+            <a href="{%url 'instruction'%}">Подати запит</a>
+            <a href="{%url 'instruction'%}">Умови користування</a>
+            <a href="{% url 'about' %}">Політика конфіденційності</a>
+          </div>
+          <div class="copyright">© 2025 KindHelp — Добро поруч.</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

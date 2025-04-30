@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kindhelp - Волонтерська платформа</title>
+    <link rel="stylesheet" href="../../static/css/about.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-bg">
+          <img src="../../static/img/logo.png" alt="Іконка" />
+        </div>
+      </div>
+      <nav class="navigation">
+        <ul>
+          <li><a href="{% url 'home' %}">Головна</a></li>
+          <li><a href="{% url 'about' %}">Про нас</a></li>
+          <li><a href="{% url 'instruction' %}">Інструкція/Тех-підтримка</a></li>
+          <li><a href="{% url 'zayavki' %}">Заявки</a></li>
+        </ul>
+      </nav>
+      <div class="profile">
+        <a href="{% url 'profile' %}">Профіль</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>ЩО ТАКЕ ВОЛОНТЕРСЬКА ПЛАТФОРМА?</h1>
+        <p>
+          Волонтерство — це добровільна безоплатна суспільно корисна діяльність,
+          спрямована на вирішення або пом'якшення соціальних проблем. Волонтери
+          вкладають свій час, зусилля й талант для того, аби зробити світ
+          кращим.
+        </p>
+        <p>
+          Волонтерська Платформа — це онлайн-портал, який збирає можливості
+          волонтерства з усієї України та допомагає однодумцям знайти одне
+          одного. Платформа дає змогу волонтерам знайти можливості творити
+          добро, розвиватись та змінювати світ, а неприбутковим організаціям
+          дарує шанс знайти надійних волонтерів для спільної роботи й налагоджує
+          комунікацію між ними.
+        </p>
+      </section>
+
+      <section class="for-whom">
+        <h2>ДЛЯ КОГО СТВОРЕНА ПЛАТФОРМА?</h2>
+        <p>
+          Якщо ти лише відкриваєш для себе світ волонтерства, Платформа стане
+          компасом для пошуку можливостей та допоможе обрати волонтерство до
+          душі. Тут ти можеш познайомитись з громадськими та благодійними
+          організаціями, почитати про перші кроки у волонтерстві, знайти історії
+          змінотворців твоєї країни та дізнатись про різні сфери волонтерської
+          допомоги й подати заявку на проєкти, які тебе цікавлять.
+        </p>
+        <p>
+          Якщо ти досвідчений волонтер, Платформа збільшить твій волонтерський
+          стаж у цій сфері. Ти зможеш знайти можливості в міжнародних
+          організаціях, познайомитись із новими напрямами та урізноманітнити
+          свою волонтерську діяльність.
+        </p>
+      </section>
+
+      <section class="reviews">
+        <h2>Відгуки організацій</h2>
+        <div class="review-grid">
+          <div class="review-card">
+            <img
+              src="../../static/img/vidguk.png"
+              alt="ГО Теплосердні"
+              class="org-logo"
+            />
+            <h3>ГО «Теплосердні»</h3>
+            <p>Чудова організація!</p>
+          </div>
+          <div class="review-card">
+            <img
+              src="../../static/img/vidguk2.png"
+              alt="ГО Теплосердні"
+              class="org-logo"
+            />
+            <h3>ГО «Теплосердні»</h3>
+            <p>Чудова організація!</p>
+          </div>
+          <div class="review-card">
+            <img
+              src="../../static/img/vidguk3.png"
+              alt="ГО Теплосердні"
+              class="org-logo"
+            />
+            <h3>ГО «Теплосердні»</h3>
+            <p>Чудова організація!</p>
+          </div>
+          <div class="review-card">
+            <img
+              src="../../static/img/vidguk3.png"
+              alt="ГО Теплосердні"
+              class="org-logo"
+            />
+            <h3>ГО «Теплосердні»</h3>
+            <p>Чудова організація!</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-logo">
+            <div class="logo-bg">
+              <img src="../../static/img/logo.png" alt="Іконка" />
+            </div>
+          </div>
+          <div class="social-contacts">
+            <div class="social-links">
+              <a href="#">Facebook</a> | <a href="#">Instagram</a> |
+              <a href="#">Telegram</a>
+            </div>
+            <p>Email: support@kindhelp.org</p>
+            <p>Телефон: +38 (050) 123 45 67</p>
+            <p>Адреса: м. Київ, вул. Доброти, 1</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-links">
+            <a href="{% url 'about' %}">Про нас</a>
+            <a href="{%url 'instruction'%}">Часті запитання</a>
+            <a href="{% url 'profile' %}">Стати волонтером</a>
+            <a href="{%url 'instruction'%}">Подати запит</a>
+            <a href="{%url 'instruction'%}">Умови користування</a>
+            <a href="{% url 'about' %}">Політика конфіденційності</a>
+          </div>
+          <div class="copyright">© 2025 KindHelp — Добро поруч.</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

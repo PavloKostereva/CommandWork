@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Деталі заявки</title>
+    <link rel="stylesheet" href="../../static/css/detail_zayavki.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-bg">
+          <img src="../../static/img/logo.png" alt="Іконка" />
+        </div>
+      </div>
+      <nav class="navigation">
+        <ul>
+          <li><a href="{% url 'home' %}">Головна</a></li>
+          <li><a href="{% url 'about' %}">Про нас</a></li>
+          <li><a href="{% url 'instruction' %}">Інструкція/Тех-підтримка</a></li>
+          <li><a href="{% url 'zayavki' %}">Заявки</a></li>
+        </ul>
+      </nav>
+      <div class="profile">
+        <a href="{% url 'profile' %}">Профіль</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="application-container">
+        <div class="application-header">
+          <h1>Потрібна допомога з доставкою ліків</h1>
+          <div class="application-meta">
+            Категорія: Медична допомога | Дата: 20 квітня 2025
+          </div>
+        </div>
+
+        <div class="application-description">
+          <p>
+            Доброго дня. Мені потрібна допомога з доставкою ліків для мами, яка
+            не може самостійно виходити з дому. Ми живемо в районі Солом’янки,
+            Київ. Якщо хтось має можливість — будь ласка, допоможіть. Дуже
+            вдячна!
+          </p>
+        </div>
+
+        <div class="application-contact">
+          <h3>Контактна інформація</h3>
+          <p><strong>Ім’я:</strong> Олена</p>
+          <p><strong>Email:</strong> olena@example.com</p>
+          <p><strong>Телефон:</strong> +38 (067) 123 45 67</p>
+        </div>
+
+        <div id="map"></div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-logo">
+            <div class="logo-bg">
+              <img src="../../static/img/logo.png" alt="Іконка" />
+            </div>
+          </div>
+          <div class="social-contacts">
+            <div class="social-links">
+              <a href="#">Facebook</a> | <a href="#">Instagram</a> |
+              <a href="#">Telegram</a>
+            </div>
+            <p>Email: support@kindhelp.org</p>
+            <p>Телефон: +38 (050) 123 45 67</p>
+            <p>Адреса: м. Київ, вул. Доброти, 1</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-links">
+            <a href="{% url 'about' %}">Про нас</a>
+            <a href="{%url 'instruction'%}">Часті запитання</a>
+            <a href="{% url 'profile' %}">Стати волонтером</a>
+            <a href="{%url 'instruction'%}">Подати запит</a>
+            <a href="{%url 'instruction'%}">Умови користування</a>
+            <a href="{% url 'about' %}">Політика конфіденційності</a>
+          </div>
+          <div class="copyright">© 2025 KindHelp — Добро поруч.</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const map = L.map("map").setView([50.4501, 30.5234], 13); // Приклад: Київ
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors",
+      }).addTo(map);
+    </script>
+  </body>
+</html>

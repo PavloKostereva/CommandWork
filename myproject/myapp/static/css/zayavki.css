@@ -1,0 +1,251 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+header {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    flex-wrap: wrap;
+}
+
+header .logo img {
+    height: 40px;
+}
+
+header .navigation {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+header .navigation ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+header .navigation a {
+    background-color: #73caa0;
+    color: black;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+header .navigation a:hover {
+    background-color: #5aa681;
+}
+
+header .profile a {
+    background-color: #73caa0;
+    color: black;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+header .profile a:hover {
+    background-color: #5aa681;
+}
+/*початок main*/
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.application-search-filter {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+}
+
+.search-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.search-filter-bar input {
+    flex: 1 1 60%;
+    padding: 10px;
+    font-size: 16px;
+    min-width: 300px;
+}
+
+.search-filter-bar select {
+    flex: 1 1 20%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.search-filter-bar button {
+    flex: 1 1 15%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #00a36c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.application-list {
+    padding: 40px 20px;
+}
+
+.application-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5%;
+    justify-content: center;
+}
+
+.application-card {
+    width: 40%;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.application-card h3 {
+    margin-top: 0;
+}
+
+.application-card button {
+    margin-top: 10px;
+    background-color: #00a36c;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+
+.button-link {
+    display: inline-block;
+    background-color: #73caa0;
+    color: black;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.button-link:hover {
+    background-color: #5aa681;
+}
+
+/*футер*/
+footer {
+    background-color: #006747;
+    color: white;
+    padding: 15px 30px;
+    font-size: 0.85em;
+}
+
+footer .container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.footer-logo img {
+    height: 30px;
+}
+
+.social-contacts {
+    text-align: right;
+    font-size: 0.8em;
+}
+
+.social-links a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 4px;
+    font-size: 0.85em;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    border-top: 1px solid #ffffff33;
+    padding-top: 10px;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.8em;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: normal;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #0075fb;
+    text-decoration: underline;
+}
+
+
+footer .copyright {
+    font-size: 0.75em;
+    color: #ffffff;
+}
+
+.logo-bg {
+    background-color: white;
+    padding: 5px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.footer-logo img,
+.logo img {
+    height: 30px;
+}

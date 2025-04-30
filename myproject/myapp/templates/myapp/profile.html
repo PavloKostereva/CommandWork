@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Профіль</title>
+    <link rel="stylesheet" href="../../static/css/profile.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-bg">
+          <img src="../../static/img/logo.png" alt="Іконка" />
+        </div>
+      </div>
+      <nav class="navigation">
+        <ul>
+          <li><a href="{% url 'home' %}">Головна</a></li>
+          <li><a href="{% url 'about' %}">Про нас</a></li>
+          <li><a href="{%url 'instruction'%}">Інструкція/Teх.підтримка</a></li>
+        </ul>
+      </nav>
+      <div class="profile">
+        <a href="{% url 'profile' %}">Профіль</a>
+      </div>
+    </header>
+
+    <main class="profile-page">
+      <section class="achievements">
+        <div class="card">
+          Досягнення: <br /><br />
+          <br />10 волонтерських виїздів
+        </div>
+        <div class="card">
+          Досягнення: <br /><br />
+          <br />Допомога літнім людям
+        </div>
+        <div class="card">
+          Досягнення: <br /><br />
+          <br />Успішне завершення курсів
+        </div>
+        <div class="card">
+          Досягнення: <br /><br />
+          <br />Позитивні відгуки
+        </div>
+      </section>
+      <section class="about-me">
+        <div class="profile-info">
+          <div class="avatar">👤</div>
+          <div class="name">/*Ім'я та прізвище користувача*/</div>
+          <p>Тут будуть дані з частини "про себе"</p>
+          <div class="stats">
+            <div class="stat">Допоміг 12 людям</div>
+            <div class="stat">Провів 10годин в дорозі</div>
+            <div class="stat">Задонатив більше 1000грн</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="reviews">
+        <div class="review-card">
+          <div class="avatar">👤</div>
+          <p>
+            "/*Ім'я*/ приїхав на 5 хвилин раніше, ніж домовлялись, був дуже
+            люб’язним"
+          </p>
+        </div>
+        <div class="review-card">
+          <div class="avatar">👤</div>
+          <p>
+            /*Ім'я*/ приїхав на 5 хвилин раніше, ніж домовлялись, був дуже
+            люб’язним
+          </p>
+        </div>
+        <div class="review-card">
+          <div class="avatar">👤</div>
+          <p>
+            /*Ім'я*/ приїхав на 5 хвилин раніше, ніж домовлялись, був дуже
+            люб’язним
+          </p>
+        </div>
+        <div class="review-card">
+          <div class="avatar">👤</div>
+          <p>
+            /*Ім'я*/ приїхав на 5 хвилин раніше, ніж домовлялись, був дуже
+            люб’язним
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-logo">
+            <div class="logo-bg">
+              <img src="../../static/img/logo.png" alt="Іконка" />
+            </div>
+          </div>
+          <div class="social-contacts">
+            <div class="social-links">
+              <a href="#">Facebook</a> | <a href="#">Instagram</a> |
+              <a href="#">Telegram</a>
+            </div>
+            <p>Email: support@kindhelp.org</p>
+            <p>Телефон: +38 (050) 123 45 67</p>
+            <p>Адреса: м. Київ, вул. Доброти, 1</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-links">
+            <a href="{% url 'about' %}">Про нас</a>
+            <a href="{%url 'instruction'%}">Часті запитання</a>
+            <a href="{% url 'profile' %}">Стати волонтером</a>
+            <a href="{%url 'instruction'%}">Подати запит</a>
+            <a href="{%url 'instruction'%}">Умови користування</a>
+            <a href="{% url 'about' %}">Політика конфіденційності</a>
+          </div>
+          <div class="copyright">© 2025 KindHelp — Добро поруч.</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

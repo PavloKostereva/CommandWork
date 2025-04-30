@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Заявки</title>
+    <link rel="stylesheet" href="../../static/css/zayavki.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-bg">
+          <img src="../../static/img/logo.png" alt="Іконка" />
+        </div>
+      </div>
+      <nav class="navigation">
+        <ul>
+          <li><a href="{% url 'home' %}">Головна</a></li>
+          <li><a href="{% url 'about' %}">Про нас</a></li>
+          <li><a href="{% url 'instruction' %}">Інструкція/Тех-підтримка</a></li>
+          <li><a href="{% url 'zayavki' %}">Заявки</a></li>
+        </ul>
+      </nav>
+      <div class="profile">
+        <a href="{% url 'profile' %}">Профіль</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="application-search-filter">
+        <div class="container">
+          <h2>Пошук та фільтрація заявок</h2>
+          <div class="search-filter-bar">
+            <input type="text" placeholder="Пошук за ключовими словами..." />
+            <select>
+              <option>Усі категорії</option>
+              <option>Медична допомога</option>
+              <option>Продукти</option>
+              <option>Одяг</option>
+              <option>Інше</option>
+            </select>
+            <button>Пошук</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="application-list">
+        <div class="container">
+          <h2>Актуальні заявки</h2>
+          <div class="application-grid">
+            <div class="application-card">
+              <h3>Потрібна допомога з ліками</h3>
+              <p>
+                Київ, вул. Прикладна 12. Людині похилого віку потрібні ліки від
+                тиску.
+              </p>
+              <a href="{% url 'detail_zayavki' %}" class="button-link">Детальніше</a>
+
+            </div>
+            <div class="application-card">
+              <h3>Допомога з продуктами</h3>
+              <p>
+                Харків, район Салтівка. Мати з двома дітьми потребує продуктовий
+                набір.
+              </p>
+              <a href="{% url 'detail_zayavki' %}" class="button-link">Детальніше</a>
+            </div>
+            <div class="application-card">
+              <h3>Потрібен теплий одяг</h3>
+              <p>
+                Житомир, центр. Людина без постійного місця проживання потребує
+                куртку та взуття.
+              </p>
+              <a href="{% url 'detail_zayavki' %}" class="button-link">Детальніше</a>
+            </div>
+            <div class="application-card">
+              <h3>Допомога з оплатою комунальних</h3>
+              <p>
+                Дніпро, вул. Енергії. Пенсіонер не в змозі самостійно оплатити
+                рахунки за газ.
+              </p>
+              <a href="{% url 'detail_zayavki' %}" class="button-link">Детальніше</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-logo">
+            <div class="logo-bg">
+              <img src="../../static/img/logo.png" alt="Іконка" />
+            </div>
+          </div>
+          <div class="social-contacts">
+            <div class="social-links">
+              <a href="#">Facebook</a> | <a href="#">Instagram</a> |
+              <a href="#">Telegram</a>
+            </div>
+            <p>Email: support@kindhelp.org</p>
+            <p>Телефон: +38 (050) 123 45 67</p>
+            <p>Адреса: м. Київ, вул. Доброти, 1</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-links">
+            <a href="{% url 'about' %}">Про нас</a>
+            <a href="{%url 'instruction'%}">Часті запитання</a>
+            <a href="{% url 'profile' %}">Стати волонтером</a>
+            <a href="{%url 'instruction'%}">Подати запит</a>
+            <a href="{%url 'instruction'%}">Умови користування</a>
+            <a href="{% url 'about' %}">Політика конфіденційності</a>
+          </div>
+          <div class="copyright">© 2025 KindHelp — Добро поруч.</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

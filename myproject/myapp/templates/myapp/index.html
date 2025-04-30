@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Мій сайт</title>
+    <link rel="stylesheet" href="../../static/css/index.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-bg">
+          <img src="../../static/img/logo.png" alt="Іконка" />
+        </div>
+      </div>
+      <nav class="navigation">
+        <ul>
+          <li><a href="{% url 'home' %}">Головна</a></li>
+          <li><a href="{% url 'about' %}">Про нас</a></li>
+          <li><a href="{%url 'instruction'%}">Інструкція</a></li>
+          <li><a href="{%url 'log_in'%}">Вхід</a></li>
+          <li><a href="{%url 'sign_up'%}">Реєстрація</a></li>
+          <li><a href="{%url 'sign_up_two'%}">Забув пароль</a></li>
+          <li><a href="{%url 'vhidna_storinka'%}">Вхідна сторінка</a></li>
+          <li><a href="{%url 'zayavki'%}">Заявки</a></li>
+          <li><a href="{%url 'detail_zayavki'%}">Детальні зявки</a></li>
+        </ul>
+      </nav>
+      <div class="profile">
+        <a href="{% url 'profile' %}">Профіль</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro-section">
+        <div class="intro-image">
+          <img
+            src="../../static/img/on_main_page.png"
+            alt="Зображення головної сторінки"
+          />
+        </div>
+        <div class="intro-text">
+          <h1>Ласкаво просимо на KindHelp</h1>
+          <p>
+            Ми допомагаємо людям у скрутних ситуаціях, об’єднуючи небайдужих
+            волонтерів з тими, хто потребує допомоги. Долучайтеся до нашої
+            спільноти та змінюймо світ разом.
+          </p>
+        </div>
+      </section>
+
+      <section class="info-cards">
+        <div class="info-card">
+          <h3>Допомога</h3>
+          <p>
+            Швидка підтримка для тих, хто потрапив у складну життєву ситуацію.
+          </p>
+        </div>
+        <div class="info-card">
+          <h3>Волонтери</h3>
+          <p>Об’єднуємо небайдужих людей, які хочуть допомагати іншим.</p>
+        </div>
+        <div class="info-card">
+          <h3>Прозорість</h3>
+          <p>Ми забезпечуємо відкритість процесу допомоги та звітності.</p>
+        </div>
+        <div class="info-card">
+          <h3>Підтримка 24/7</h3>
+          <p>Наша технічна підтримка завжди поруч, коли вона потрібна.</p>
+        </div>
+      </section>
+
+      <section class="news-section">
+        <h2>Актуальні новини</h2>
+
+        <div class="news-item">
+          <h3>Запуск нової функції швидкого пошуку допомоги</h3>
+          <p>
+            Ми додали нову функцію на сайті, яка дозволяє швидко знаходити
+            необхідну допомогу за категоріями.
+          </p>
+        </div>
+
+        <div class="news-item">
+          <h3>Понад 1000 волонтерів приєдналися до нас</h3>
+          <p>
+            З початку цього місяця ми отримали заявки від понад тисячі
+            волонтерів, які готові допомагати щодня!
+          </p>
+        </div>
+
+        <div class="news-item">
+          <h3>Оновлення дизайну сайту</h3>
+          <p>
+            Ми оновили інтерфейс для покращення зручності користування.
+            Сподіваємось, вам сподобається!
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-logo">
+            <div class="logo-bg">
+              <img src="../../static/img/logo.png" alt="Іконка" />
+            </div>
+          </div>
+          <div class="social-contacts">
+            <div class="social-links">
+              <a href="#">Facebook</a> | <a href="#">Instagram</a> |
+              <a href="#">Telegram</a>
+            </div>
+            <p>Email: support@kindhelp.org</p>
+            <p>Телефон: +38 (050) 123 45 67</p>
+            <p>Адреса: м. Київ, вул. Доброти, 1</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-links">
+            <a href="{% url 'about' %}">Про нас</a>
+            <a href="{%url 'instruction'%}">Часті запитання</a>
+            <a href="{% url 'profile' %}">Стати волонтером</a>
+            <a href="{%url 'instruction'%}">Подати запит</a>
+            <a href="{%url 'instruction'%}">Умови користування</a>
+            <a href="{% url 'about' %}">Політика конфіденційності</a>
+          </div>
+          <div class="copyright">© 2025 KindHelp — Добро поруч.</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
