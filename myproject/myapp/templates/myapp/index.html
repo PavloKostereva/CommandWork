@@ -1,16 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Мій сайт</title>
-    <link rel="stylesheet" href="../../static/css/index.css" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
   </head>
   <body>
     <header>
       <div class="logo">
         <div class="logo-bg">
-          <img src="../../static/img/logo.png" alt="Іконка" />
+          <img src="{% static 'img/logo.png' %}" alt="Іконка" />
         </div>
       </div>
       <nav class="navigation">
@@ -20,10 +21,8 @@
           <li><a href="{%url 'instruction'%}">Інструкція</a></li>
           <li><a href="{%url 'log_in'%}">Вхід</a></li>
           <li><a href="{%url 'sign_up'%}">Реєстрація</a></li>
-          <li><a href="{%url 'sign_up_two'%}">Забув пароль</a></li>
-          <li><a href="{%url 'vhidna_storinka'%}">Вхідна сторінка</a></li>
           <li><a href="{%url 'zayavki'%}">Заявки</a></li>
-          <li><a href="{%url 'detail_zayavki'%}">Детальні зявки</a></li>
+          
         </ul>
       </nav>
       <div class="profile">
@@ -32,19 +31,21 @@
     </header>
 
     <main>
+      <p>{{ zayavka.pk }}</p>
       <section class="intro-section">
         <div class="intro-image">
           <img
-            src="../../static/img/on_main_page.png"
+            src="{% static 'img/on_main_page.png' %}"
             alt="Зображення головної сторінки"
           />
         </div>
         <div class="intro-text">
           <h1>Ласкаво просимо на KindHelp</h1>
           <p>
-            Ми допомагаємо людям у скрутних ситуаціях, об’єднуючи небайдужих
-            волонтерів з тими, хто потребує допомоги. Долучайтеся до нашої
-            спільноти та змінюймо світ разом.
+            Ми – громадська організація, яка створює мережу взаємодопомоги по всій Україні. 
+            Наша місія – об'єднувати людей, які потребують підтримки, з тими, хто готовий допомагати.
+             Долучайтеся до нашої
+            спільноти та змінюймо світ разом. Наша платформа поєднує тих, хто потребує підтримки, з тими, хто готовий допомагати. Кожен день ми разом доводимо: добро не має кордонів!
           </p>
         </div>
       </section>
@@ -72,30 +73,13 @@
 
       <section class="news-section">
         <h2>Актуальні новини</h2>
-
-        <div class="news-item">
-          <h3>Запуск нової функції швидкого пошуку допомоги</h3>
-          <p>
-            Ми додали нову функцію на сайті, яка дозволяє швидко знаходити
-            необхідну допомогу за категоріями.
-          </p>
-        </div>
-
-        <div class="news-item">
-          <h3>Понад 1000 волонтерів приєдналися до нас</h3>
-          <p>
-            З початку цього місяця ми отримали заявки від понад тисячі
-            волонтерів, які готові допомагати щодня!
-          </p>
-        </div>
-
-        <div class="news-item">
-          <h3>Оновлення дизайну сайту</h3>
-          <p>
-            Ми оновили інтерфейс для покращення зручності користування.
-            Сподіваємось, вам сподобається!
-          </p>
-        </div>
+        {% for el in news %}
+          <div class="news-item">
+            <h3>{{ el.title }}</h3>
+            <p>{{ el.text }}</p>  
+            <p><small>{{ el.date|date:"d.m.Y" }}</small></p>
+          </div>
+        {% endfor %}
       </section>
     </main>
 
@@ -104,7 +88,7 @@
         <div class="footer-top">
           <div class="footer-logo">
             <div class="logo-bg">
-              <img src="../../static/img/logo.png" alt="Іконка" />
+              <img src="{% static 'img/logo.png' %}" alt="Іконка" />
             </div>
           </div>
           <div class="social-contacts">

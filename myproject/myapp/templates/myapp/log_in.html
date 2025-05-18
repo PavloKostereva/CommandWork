@@ -17,32 +17,26 @@
             
             <h1>Увійти</h1>
             
-            <form class="login-form">
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
                 <div class="form-group">
-                    <label for="email">Адреса електронної пошти</label>
-                    <input type="email" id="email" placeholder="Введіть вашу електронну пошту...">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {{ form.username.errors }}
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" placeholder="Введіть ваш пароль...">
-                    <a href="#" class="forgot-password">Забули пароля?</a>
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+                    {{ form.password.errors }}
                 </div>
                 
                 <button type="submit" class="login-btn">Продовжити</button>
             </form>
             
-            <div class="divider">
-                <span>Або</span>
-            </div>
-            
-            <button class="google-btn">
-                <img src="../../static/img/google.png" alt="Google Icon">
-                <span>Увійти з Google</span>
-            </button>
-            
             <div class="register-link">
-                Ще не маєш облікового запису? <a href="{%url 'log_in'%}">Реєстрація</a>
+                Ще не маєш облікового запису? <a href="{%url 'sign_up'%}">Реєстрація</a>
             </div>
         </div>
     </div>

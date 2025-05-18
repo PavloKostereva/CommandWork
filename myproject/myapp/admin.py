@@ -1,52 +1,50 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .models import User, HelpRequest, Donation, Location, Rating, Transaction
+from .models import HelpRequest
+from .models import User
+from .models import CurrentNews
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.admin import UserAdmin 
+
+admin.site.register(CurrentNews)
 
 class CustomUserAdmin(UserAdmin):
     model = User
-    list_display = ('username', 'email', 'role', 'email_verified', 'phone_verified', 'points_balance')
-    list_filter = ('role', 'email_verified', 'phone_verified')
-    fieldsets = UserAdmin.fieldsets + (  # кастомні поля
-        ('Додаткові дані', {'fields': ('role', 'email_verified', 'phone_verified', 'points_balance')}),
+    list_display = ('email', 'fullname', 'is_staff')
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('fullname', 'phone', 'avatar', 'about', 'points_balance')}),
     )
+
+admin.site.register(User, CustomUserAdmin)
 
 @admin.register(HelpRequest)
 class HelpRequestAdmin(admin.ModelAdmin):
-    list_display = ('seeker', 'description', 'status', 'created_at')
-    list_filter = ('status', 'created_at')
-    search_fields = ('description', 'seeker__username')
-    readonly_fields = ('created_at', 'updated_at')
+    readonly_fields = ['created_at', 'updated_at']  # обидва поля є в моделі
 
-@admin.register(Donation)
-class DonationAdmin(admin.ModelAdmin):
-    list_display = ('donor', 'help_request', 'status', 'donation_date', 'completed_at')
-    list_filter = ('status',)
-    search_fields = ('donor__username', 'help_request__description')
-    readonly_fields = ('donation_date', 'completed_at')
+    # Замість неіснуючих полів використовуємо ті, що точно існують
+    list_display = ['title', 'category', 'requester', 'status', 'updated_at']
+    list_filter = ['status', 'category']  # category — дозволений тип для фільтра
 
-@admin.register(Location)
-class LocationAdmin(admin.ModelAdmin):
-    list_display = ('user', 'latitude', 'longitude', 'last_updated')
-    search_fields = ('user__username',)
-    readonly_fields = ('last_updated',)
-
-@admin.register(Rating)
-class RatingAdmin(admin.ModelAdmin):
-    list_display = ('giver', 'receiver', 'rating', 'created_at')
-    list_filter = ('rating',)
-    search_fields = ('giver__username', 'receiver__username')
-
-@admin.register(Transaction)
-class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('donor', 'points', 'created_at')
-    list_filter = ('created_at',)
-    search_fields = ('donor__username',)
-    readonly_fields = ('created_at',)
+    search_fields = ['title', 'description', 'name', 'email', 'phone']
 
 
+# @admin.register(User)
+# class UserAdmin(BaseUserAdmin):
+#     fieldsets = (
+#         (None, {'fields': ('username', 'password')}),
+#         ('Особиста інформація', {'fields': ('fullname', 'email', 'about')}),
+#         ('Права доступу', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+#         ('Інша інформація', {'fields': ('email_verified', 'phone_verified', 'points_balance')}),
+#         ('Важливі дати', {'fields': ('last_login', 'date_joined')}),
+#     )
 
+#     add_fieldsets = (
+#         (None, {
+#             'classes': ('wide',),
+#             'fields': ('username', 'fullname', 'email', 'about', 'password1', 'password2'),
+#         }),
+#     )
 
+#     list_display = ('username', 'fullname', 'email', 'is_staff', 'email_verified', 'phone_verified')
+#     search_fields = ('username', 'fullname', 'email')
+#     ordering = ('username',)
 
-
-#реєстрація кастомного користувача
-admin.site.register(User, CustomUserAdmin)

@@ -1,19 +1,12 @@
 from pathlib import Path
-import os
-import firebase_admin
-from firebase_admin import credentials, auth
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-cred = credentials.Certificate(os.path.join(BASE_DIR, "firebase-key.json"))
-firebase_admin.initialize_app(cred)
 
 SECRET_KEY = 'django-insecure-a)mq+*np*!_dn2od=o=x+7)gv6a34b4*2hzlg((%ys9a8giod('
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,6 +47,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
+AUTH_USER_MODEL = 'myapp.User'
+
+LOGIN_REDIRECT_URL = 'profile'
+LOGOUT_REDIRECT_URL = 'login'
 
 DATABASES = {
     'default': {
@@ -61,7 +58,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -80,21 +76,29 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# для роботи зображень
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
 
-INSTALLED_APPS += ['corsheaders']
-MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
 
-CORS_ALLOW_ALL_ORIGINS = True
+LOGIN_URL = '/log_in/'  # Вкажіть шлях до вашої сторінки входу
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'logikasun@gmail.com'
+EMAIL_HOST_PASSWORD = 'fkxv uwya wtuo pbrm'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'myapp' / 'static'
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

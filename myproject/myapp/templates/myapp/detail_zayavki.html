@@ -7,6 +7,23 @@
     <link rel="stylesheet" href="../../static/css/detail_zayavki.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+      #map-container {
+        width: 100%;
+        height: 400px;
+        margin-top: 20px;
+        border: 1px solid #ccc;
+      }
+      #google-map {
+        width: 100%;
+        height: 400px;
+        margin-top: 20px;
+        border: 1px solid #ccc;
+      }
+      .map-controls {
+        margin: 20px 0;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -19,8 +36,11 @@
         <ul>
           <li><a href="{% url 'home' %}">Головна</a></li>
           <li><a href="{% url 'about' %}">Про нас</a></li>
-          <li><a href="{% url 'instruction' %}">Інструкція/Тех-підтримка</a></li>
-          <li><a href="{% url 'zayavki' %}">Заявки</a></li>
+          <li><a href="{%url 'instruction'%}">Інструкція</a></li>
+          <li><a href="{%url 'log_in'%}">Вхід</a></li>
+          <li><a href="{%url 'sign_up'%}">Реєстрація</a></li>
+          <li><a href="{%url 'zayavki'%}">Заявки</a></li>
+          
         </ul>
       </nav>
       <div class="profile">
@@ -31,30 +51,35 @@
     <main>
       <div class="application-container">
         <div class="application-header">
-          <h1>Потрібна допомога з доставкою ліків</h1>
+          <h1>{{ requests.title }}</h1>
           <div class="application-meta">
-            Категорія: Медична допомога | Дата: 20 квітня 2025
+            <p>Категорія: {{ requests.category }} | Дата: {{ requests.created_at }}</p>
           </div>
         </div>
 
         <div class="application-description">
-          <p>
-            Доброго дня. Мені потрібна допомога з доставкою ліків для мами, яка
-            не може самостійно виходити з дому. Ми живемо в районі Солом’янки,
-            Київ. Якщо хтось має можливість — будь ласка, допоможіть. Дуже
-            вдячна!
-          </p>
+          <p>{{ requests.description }}</p>
+          <p>Адреса: {{ requests.address }}</p>
+          <p>Локація: {{ requests.location }}</p>
         </div>
 
         <div class="application-contact">
           <h3>Контактна інформація</h3>
-          <p><strong>Ім’я:</strong> Олена</p>
-          <p><strong>Email:</strong> olena@example.com</p>
-          <p><strong>Телефон:</strong> +38 (067) 123 45 67</p>
+          <p><strong>Ім'я:</strong> {{ requests.requester.fullname }}</p>
+          <p><strong>Email:</strong> {{ requests.email }}</p>
+          <p><strong>Телефон:</strong> {{ requests.phone }}</p>
         </div>
-
-        <div id="map"></div>
+        
+        <div class="map-controls">
+        <h2>Введіть адресу:</h2>
+        <input type="text" id="address" placeholder="Наприклад: вул. Хрещатик, 1, Київ" value="{{ requests.address }}">
+        <button id="show-map-btn">Показати на карті</button>
+        </div>
+        
+        <iframe id="google-map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
+
+      
     </main>
 
     <footer>
@@ -78,10 +103,10 @@
         <div class="footer-bottom">
           <div class="footer-links">
             <a href="{% url 'about' %}">Про нас</a>
-            <a href="{%url 'instruction'%}">Часті запитання</a>
+            <a href="{% url 'instruction' %}">Часті запитання</a>
             <a href="{% url 'profile' %}">Стати волонтером</a>
-            <a href="{%url 'instruction'%}">Подати запит</a>
-            <a href="{%url 'instruction'%}">Умови користування</a>
+            <a href="{% url 'instruction' %}">Подати запит</a>
+            <a href="{% url 'instruction' %}">Умови користування</a>
             <a href="{% url 'about' %}">Політика конфіденційності</a>
           </div>
           <div class="copyright">© 2025 KindHelp — Добро поруч.</div>
@@ -89,12 +114,31 @@
       </div>
     </footer>
 
-    <script>
-      const map = L.map("map").setView([50.4501, 30.5234], 13); // Приклад: Київ
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          // Отримуємо адресу з Django (екрановану)
+          const address = "{{ requests.address|escapejs }}";
+          
+          // Функція для Google Maps
+          function showMap() {
+              const addressInput = document.getElementById('address').value || address;
+              if (!addressInput) return;
+              
+              const encodedAddress = encodeURIComponent(addressInput);
+              const googleMap = document.getElementById('google-map');
+              googleMap.src = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
+              googleMap.style.display = 'block';
+          }
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "&copy; OpenStreetMap contributors",
-      }).addTo(map);
+          // Обробник кнопки
+          document.getElementById('show-map-btn').addEventListener('click', showMap);
+
+          // Показати карту при завантаженні (якщо є адреса)
+          if (address) {
+              showMap();
+          }
+      });
     </script>
+
   </body>
 </html>

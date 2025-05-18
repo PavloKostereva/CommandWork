@@ -17,8 +17,11 @@
         <ul>
           <li><a href="{% url 'home' %}">Головна</a></li>
           <li><a href="{% url 'about' %}">Про нас</a></li>
-          <li><a href="{% url 'instruction' %}">Інструкція/Тех-підтримка</a></li>
-          <li><a href="{% url 'zayavki' %}">Заявки</a></li>
+          <li><a href="{%url 'instruction'%}">Інструкція</a></li>
+          <li><a href="{%url 'log_in'%}">Вхід</a></li>
+          <li><a href="{%url 'sign_up'%}">Реєстрація</a></li>
+          <li><a href="{%url 'zayavki'%}">Заявки</a></li>
+          
         </ul>
       </nav>
       <div class="profile">
@@ -33,17 +36,38 @@
           <div class="instruction">
             <h3>Для користувача</h3>
             <p>
-              Тут розміщується текст інструкції для користувача. Наприклад, як
-              зареєструватися, подати запит, знайти волонтера тощо.
+              Для користувачів, які хочуть подати заявку на допомогу
+              Ласкаво просимо! Якщо ви потрапили у складну ситуацію і потребуєте допомоги, ми тут, щоб підтримати вас. Ось як скористатися нашим сайтом:
+              <br>Реєстрація<br>
+              Зареєструйтесь на сайті, вказавши основну інформацію про себе. Це допоможе волонтерам швидко зрозуміти вашу ситуацію.
+              <br>Подання заявки<br>
+              Після входу в систему перейдіть у розділ «Подати заявку». Заповніть форму, де опишіть свою проблему, вид допомоги, яка вам потрібна, та контактні дані.
+              <br>Очікуйте відповіді<br>
+              Ваша заявка буде доступна для перегляду волонтерам, які можуть запропонувати допомогу. Ви отримаєте повідомлення, коли хтось зв’яжеться з вами.
+              <br>Спілкування з волонтером<br>
+              Коли волонтер погодиться допомогти, ви зможете домовитися про деталі через внутрішній чат або за вказаними контактами.
+              <br>Підтвердження отримання допомоги<br>
+              Після того, як ви отримали допомогу, рекомендуємо залишити відгук або підтвердження, щоб ми знали, що все пройшло успішно.
             </p>
           </div>
           <div class="instruction">
             <h3>Для волонтера</h3>
             <p>
-              Тут розміщується текст інструкції для волонтера. Наприклад, як
-              стати волонтером, переглядати запити, підтвердити допомогу тощо.
+              Для волонтерів, які хочуть допомагати
+              Дякуємо, що хочете допомагати іншим! Наш сайт полегшує процес пошуку тих, хто потребує підтримки. Ось як це працює:
+              <br>Реєстрація<br>
+              Зареєструйтесь як волонтер, вкажіть свої контактні дані та можливі напрямки допомоги, які ви готові надати.
+              <br>Пошук заявок<br>
+              У розділі «Заявки на допомогу» ви зможете переглядати актуальні запити від користувачів.
+              <br>Обрання заявки<br>
+              Оберіть заявку, яку ви можете підтримати, і напишіть користувачу через внутрішній чат або запропонуйте зв’язатися з вами.
+              <br>Домовленість про допомогу<br>
+              Узгодьте всі деталі безпосередньо з користувачем: час, місце, формат допомоги.
+              <br>Підтвердження виконання<br>
+              Після того, як ви надали допомогу, рекомендуємо підтвердити це в системі, щоб підтримувати довіру у спільноті.
             </p>
           </div>
+
         </div>
       </section>
 
@@ -63,7 +87,11 @@
 
           <div class="support-form">
             <h3>Форма зворотного зв’язку</h3>
-            <form>
+            <div id="successMessage" style="display: none; color: green;">Повідомлення надіслано успішно!</div>
+            <div id="errorMessage" style="display: none; color: red;"></div>
+        
+            <form id="support-form">
+              {% csrf_token %}
               <input
                 type="text"
                 name="name"
@@ -125,5 +153,48 @@
         </div>
       </div>
     </footer>
+    <script>
+      document.getElementById("support-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        const formData = new FormData(this);
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        
+        // Показати завантаження
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Відправка...";
+        
+        fetch("/contact_support/", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": csrfToken
+          },
+          body: formData
+        })
+        .then(response => {
+          if (!response.ok) throw new Error('Помилка мережі');
+          return response.json();
+        })
+        .then(data => {
+          if (data.success) {
+            document.getElementById("successMessage").style.display = "block";
+            document.getElementById("errorMessage").style.display = "none";
+            this.reset();
+          } else {
+            throw new Error(data.error || "Невідома помилка");
+          }
+        })
+        .catch(error => {
+          console.error("Помилка:", error);
+          document.getElementById("errorMessage").textContent = error.message;
+          document.getElementById("errorMessage").style.display = "block";
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Надіслати";
+        });
+      });
+    </script>
   </body>
-</html>
+  </html>

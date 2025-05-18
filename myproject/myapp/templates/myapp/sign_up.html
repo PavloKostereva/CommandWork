@@ -23,66 +23,59 @@
         </div>
 
         <h1>Реєстрація</h1>
-
-        <form class="login-form">
+        <form method="post" class="login-form">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+        
           <div class="form-group">
-            <label for="email">Ваша електронна пошта</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Введіть свій email"
-              required
-            />
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+          </div>
+        
+          <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.username.errors }}
           </div>
 
           <div class="form-group">
-            <label for="lastName">Прізвище</label>
-            <input
-              type="text"
-              id="lastName"
-              placeholder="Введіть ваше прізвище"
-              required
-            />
+            {{ form.fullname.label_tag }}
+            {{ form.fullname }}
+            {{ form.fullname.errors }}
+          </div>
+        
+          <div class="form-group">
+            {{ form.phone.label_tag }}
+            {{ form.phone }}
+            {{ form.phone.errors }}
           </div>
 
           <div class="form-group">
-            <label for="password">Пароль</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Створіть пароль"
-              required
-            />
+            {{ form.about.label_tag }}
+            {{ form.about }}
+            {{ form.about.errors }}
           </div>
 
           <div class="form-group">
-            <label for="about">Про себе</label>
-            <textarea
-              id="about"
-              placeholder="Розкажіть трохи про себе"
-            ></textarea>
-            <p class="optional">Не обов'язково</p>
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            {{ form.password1.errors }}
           </div>
-
+        
+          <div class="form-group">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+          </div>
+        
           <button type="submit" class="login-btn">Продовжити</button>
-
-          <div class="divider">
-            <span>Або</span>
-          </div>
-
-          <button class="google-btn" id="googleSignIn">
-            <img src="../../static/img/google.png" alt="Google Icon" />
-            <span>Реєстрація з Google</span>
-          </button>
         </form>
-
+        
         <div class="register-link">
-          Вже маєте обліковий запис? <a href="login.html">Увійти</a>
+          Вже маєте обліковий запис? <a href="{% url 'log_in' %}">Увійти</a>
         </div>
       </div>
     </div>
-
-    {% load static %}
-    <script type="module" src="{% static 'js/firebase_login.js' %}"></script>
   </body>
 </html>

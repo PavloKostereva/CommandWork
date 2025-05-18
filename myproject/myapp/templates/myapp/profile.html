@@ -1,10 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Профіль</title>
-    <link rel="stylesheet" href="../../static/css/profile.css" />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <style>
+      input[type="file"] {
+        display: none;
+      }
+      .edit-btn {
+        margin-top: 10px;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -17,7 +27,11 @@
         <ul>
           <li><a href="{% url 'home' %}">Головна</a></li>
           <li><a href="{% url 'about' %}">Про нас</a></li>
-          <li><a href="{%url 'instruction'%}">Інструкція/Teх.підтримка</a></li>
+          <li><a href="{%url 'instruction'%}">Інструкція</a></li>
+          <li><a href="{%url 'log_in'%}">Вхід</a></li>
+          <li><a href="{%url 'sign_up'%}">Реєстрація</a></li>
+          <li><a href="{%url 'zayavki'%}">Заявки</a></li>
+          
         </ul>
       </nav>
       <div class="profile">
@@ -26,99 +40,176 @@
     </header>
 
     <main class="profile-page">
-      <section class="achievements">
-        <div class="card">
-          Досягнення: <br /><br />
-          <br />10 волонтерських виїздів
-        </div>
-        <div class="card">
-          Досягнення: <br /><br />
-          <br />Допомога літнім людям
-        </div>
-        <div class="card">
-          Досягнення: <br /><br />
-          <br />Успішне завершення курсів
-        </div>
-        <div class="card">
-          Досягнення: <br /><br />
-          <br />Позитивні відгуки
-        </div>
-      </section>
-      <section class="about-me">
-        <div class="profile-info">
-          <div class="avatar">👤</div>
-          <div class="name">/*Ім'я та прізвище користувача*/</div>
-          <p>Тут будуть дані з частини "про себе"</p>
-          <div class="stats">
-            <div class="stat">Допоміг 12 людям</div>
-            <div class="stat">Провів 10годин в дорозі</div>
-            <div class="stat">Задонатив більше 1000грн</div>
+      <section class="profile-container">
+        <div class="profile-left">
+          <div class="avatar">
+            {% if profile_user.avatar %}
+              <img id="avatarImage" src="{{ profile_user.avatar.url }}" alt="Аватар" />
+            {% else %}
+              <img id="avatarImage" src="{% static 'img/default_avatar.png' %}" alt="Аватар" />
+            {% endif %}
+            
           </div>
+          <div class="personal-info">
+            <h2>{{ profile_user.fullname }}</h2>
+            <p>Користувач:{{ profile_user.username }}</p>
+            <p>Email: {{ profile_user.email }}</p>
+            <p>Телефон: {{ profile_user.phone }}</p>
+            <p>Про себе:{{ profile_user.about }}</p>
+          </div>    
+          
+          <!-- Кнопка -->
+          {% if is_own_profile %}
+            <button id="editProfileBtn">Редагувати профіль</button>
+          {% endif %}
+          <div class="modal-overlay" id="modalOverlay"></div>
+
+          <!-- Модальне вікно -->
+          <div id="editProfileModal" style="display:none;">
+            <h3>Редагування профілю</h3>
+            <button type="button" id="closeModal">&times;</button>
+            <form id="editProfileForm" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div id="formContent"></div>
+              <button type="submit">Зберегти</button>
+              
+            </form>
+          </div>
+
+
+          <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              {% if is_own_profile %}
+                <button type="submit" class="logout-btn">Вийти</button>
+              {% endif %}
+          </form>
+        </div>
+        
+        <div class="profile-right">
+          <h2>Статистика</h2>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <h3>Прийнято заявок</h3>
+              <p>5</p>
+            </div>
+            <div class="stat-box">
+              <h3>Подано заявок</h3>
+              <p>3</p>
+            </div>
+            <div class="stat-box">
+              <h3>Нараховано бонусів</h3>
+              <p>70</p>
+            </div>
+          </div>
+
+          <h2>Історія активності</h2>
+          <ul class="history">
+            <li>✅ Прийнято заявку (медична допомога) — +20 бонусів</li>
+            <li>✅ Прийнято заявку (покупки) — +10 бонусів</li>
+            <li>📤 Подано заявку (допомога з ліками)</li>
+          </ul>
         </div>
       </section>
 
-      <section class="reviews">
-        <div class="review-card">
-          <div class="avatar">👤</div>
-          <p>
-            "/*Ім'я*/ приїхав на 5 хвилин раніше, ніж домовлялись, був дуже
-            люб’язним"
-          </p>
-        </div>
-        <div class="review-card">
-          <div class="avatar">👤</div>
-          <p>
-            /*Ім'я*/ приїхав на 5 хвилин раніше, ніж домовлялись, був дуже
-            люб’язним
-          </p>
-        </div>
-        <div class="review-card">
-          <div class="avatar">👤</div>
-          <p>
-            /*Ім'я*/ приїхав на 5 хвилин раніше, ніж домовлялись, був дуже
-            люб’язним
-          </p>
-        </div>
-        <div class="review-card">
-          <div class="avatar">👤</div>
-          <p>
-            /*Ім'я*/ приїхав на 5 хвилин раніше, ніж домовлялись, був дуже
-            люб’язним
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="container">
-        <div class="footer-top">
-          <div class="footer-logo">
-            <div class="logo-bg">
-              <img src="../../static/img/logo.png" alt="Іконка" />
-            </div>
-          </div>
-          <div class="social-contacts">
-            <div class="social-links">
-              <a href="#">Facebook</a> | <a href="#">Instagram</a> |
-              <a href="#">Telegram</a>
-            </div>
-            <p>Email: support@kindhelp.org</p>
-            <p>Телефон: +38 (050) 123 45 67</p>
-            <p>Адреса: м. Київ, вул. Доброти, 1</p>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <div class="footer-links">
-            <a href="{% url 'about' %}">Про нас</a>
-            <a href="{%url 'instruction'%}">Часті запитання</a>
-            <a href="{% url 'profile' %}">Стати волонтером</a>
-            <a href="{%url 'instruction'%}">Подати запит</a>
-            <a href="{%url 'instruction'%}">Умови користування</a>
-            <a href="{% url 'about' %}">Політика конфіденційності</a>
-          </div>
-          <div class="copyright">© 2025 KindHelp — Добро поруч.</div>
-        </div>
+      <h3>Подані заявки</h3>
+      {% if applications %}
+        <div class="application-grid">
+          {% for req in applications  %}
+              <div class="application-card">
+                  <h3>{{ req.title }}</h3>
+                  <p>{{ req.description|truncatewords:20 }}</p>
+                  <p><strong>Адреса:</strong> {{ req.address }}</p>
+                  <p><small>{{ req.created_at|date:"d.m.Y" }}</small></p>
+                  <p><strong>Статус:</strong>
+                    {% if req.status == 'pending' %} Очікує
+                    {% elif req.status == 'in_progress' %} В процесі
+                    {% elif req.status == 'completed' %} Завершено
+                    {% endif %}
+                  </p>
+                  <a href="{% url 'detail_zayavki' pk=req.pk %}" class="button-link">Детальніше</a>
+                  {% if req.status == 'in_progress' %}             
+                    <form method="post" action="{% url 'creator_complete_request' req.id %}">
+                      {% csrf_token %}
+                      {% if is_own_profile %}
+                        <button type="submit">Завершити</button>
+                      {% endif %}
+                    </form>
+                  {% endif %}
+                  <form method="post" action="{% url 'delete_request' req.pk %}" style="margin-top: 5px;">
+                    {% csrf_token %}
+                    {% if is_own_profile %}
+                      <button type="submit" onclick="return confirm('Ви впевнені, що хочете видалити цю заявку?');">Видалити</button>
+                    {% endif %}
+                  </form>
+              </div>
+          {% endfor %}
       </div>
-    </footer>
+      {% else %}
+          <p>У вас ще немає заявок.</p>
+      {% endif %}
+
+      <h3>Прийняті заявки</h3>
+      {% if accepted_requests %}
+          <div class="accepted-requests-container">
+              {% for req in accepted_requests %}
+                  <div class="accepted-request-card">
+                      <h4>{{ req.title }} 
+                          <span class="status-badge status-{{ req.status }}">
+                              {% if req.status == 'pending' %}Очікує
+                              {% elif req.status == 'in_progress' %}В процесі
+                              {% elif req.status == 'completed' %}Завершено
+                              {% endif %}
+                          </span>
+                      </h4>
+                      <p>{{ req.description|truncatewords:20 }}</p>
+                      <p><strong>Адреса:</strong> {{ req.address }}</p>
+                      <p><small>Створено: {{ req.created_at|date:"d.m.Y" }}</small></p>
+                      <a href="{% url 'detail_zayavki' pk=req.pk %}">Детальніше</a>
+                  </div>
+              {% endfor %}
+          </div>
+      {% else %}
+          <div class="empty-state">
+              <p>Немає прийнятих заявок.</p>
+          </div>
+      {% endif %}
+    </main>
   </body>
 </html>
+<script>
+document.getElementById('editProfileBtn').onclick = function () {
+  fetch("{% url 'update_profile' %}", {
+    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+  })
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('formContent').innerHTML = html;
+    document.getElementById('editProfileModal').style.display = 'block';
+    document.getElementById('modalOverlay').style.display = 'block';
+  });
+};
+
+document.getElementById('closeModal').onclick = function () {
+  document.getElementById('editProfileModal').style.display = 'none';
+  document.getElementById('modalOverlay').style.display = 'none';
+};
+
+document.getElementById('editProfileForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+
+  fetch("{% url 'update_profile' %}", {
+    method: 'POST',
+    body: formData,
+    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      location.reload();  // Перезавантаження для оновлення профілю
+    } else {
+      document.getElementById('formContent').innerHTML = data.form_html;
+    }
+  });
+});
+</script>

@@ -1,0 +1,20 @@
+<form id="editProfileForm" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label for="id_email">Email:</label>
+  {{ form.email }}
+
+  <label for="id_first_name">username:</label>
+  {{ form.username }}
+
+  <label for="id_last_name">fullname:</label>
+  {{ form.fullname }}
+
+  <label for="id_email">Phone:</label>
+  {{ form.phone }}
+
+  <label for="id_email">Email:</label>
+  {{ form.about }}
+
+  <label for="id_avatar">Аватар:</label>
+  {{ form.avatar }}
+</form>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="uk">
   <head>
@@ -5,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Заявки</title>
     <link rel="stylesheet" href="../../static/css/zayavki.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
     <header>
@@ -17,8 +21,10 @@
         <ul>
           <li><a href="{% url 'home' %}">Головна</a></li>
           <li><a href="{% url 'about' %}">Про нас</a></li>
-          <li><a href="{% url 'instruction' %}">Інструкція/Тех-підтримка</a></li>
-          <li><a href="{% url 'zayavki' %}">Заявки</a></li>
+          <li><a href="{%url 'instruction'%}">Інструкція</a></li>
+          <li><a href="{%url 'log_in'%}">Вхід</a></li>
+          <li><a href="{%url 'sign_up'%}">Реєстрація</a></li>
+          <li><a href="{%url 'zayavki'%}">Заявки</a></li>
         </ul>
       </nav>
       <div class="profile">
@@ -27,64 +33,162 @@
     </header>
 
     <main>
-      <section class="application-search-filter">
-        <div class="container">
-          <h2>Пошук та фільтрація заявок</h2>
-          <div class="search-filter-bar">
-            <input type="text" placeholder="Пошук за ключовими словами..." />
-            <select>
-              <option>Усі категорії</option>
-              <option>Медична допомога</option>
-              <option>Продукти</option>
-              <option>Одяг</option>
-              <option>Інше</option>
-            </select>
-            <button>Пошук</button>
-          </div>
-        </div>
-      </section>
+      <!-- Обгортка сторінки -->
+      <div class="container">
+        <!-- Пошук і фільтрація -->
+        <div class="application-search-filter">
+          <form method="get">
+            <div class="search-filter-bar">
+              <!-- Пошук -->
+              <input type="text" name="search" placeholder="Пошук за адресою" value="{{ search_query }}">
 
-      <section class="application-list">
-        <div class="container">
-          <h2>Актуальні заявки</h2>
+              <!-- Категорії -->
+              <select name="category">
+                <option value="all" {% if selected_category == 'all' %}selected{% endif %}>Усі категорії</option>
+                <option value="medical" {% if selected_category == 'medical' %}selected{% endif %}>Медична допомога</option>
+                <option value="food" {% if selected_category == 'food' %}selected{% endif %}>Продукти харчування</option>
+                <option value="transport" {% if selected_category == 'transport' %}selected{% endif %}>Транспорт</option>
+                <option value="other" {% if selected_category == 'other' %}selected{% endif %}>Інше</option>
+              </select>
+
+              <!-- Сортування -->
+              <select name="sort">
+                <option value="date_desc" {% if selected_sort == 'date_desc' %}selected{% endif %}>Новіші</option>
+                <option value="date_asc" {% if selected_sort == 'date_asc' %}selected{% endif %}>Старіші</option>
+                <option value="alpha_asc" {% if selected_sort == 'alpha_asc' %}selected{% endif %}>А-Я</option>
+                <option value="alpha_desc" {% if selected_sort == 'alpha_desc' %}selected{% endif %}>Я-А</option>
+              </select>
+
+              <!-- Кнопки -->
+              <button type="submit">Пошук</button>
+              <a href="{% url 'zayavki' %}" class="button-link">Очистити</a>
+            </div>
+          </form>
+        </div>
+
+        <!-- Блок з заявками -->
+        <div class="application-list">
+          <div class="d-flex justify-content-end">
+            <button class="create-button" data-bs-toggle="modal" data-bs-target="#addRequestModal">
+              + Створити заявку
+            </button>
+          </div>
+
           <div class="application-grid">
-            <div class="application-card">
-              <h3>Потрібна допомога з ліками</h3>
-              <p>
-                Київ, вул. Прикладна 12. Людині похилого віку потрібні ліки від
-                тиску.
-              </p>
-              <a href="{% url 'detail_zayavki' %}" class="button-link">Детальніше</a>
-
-            </div>
-            <div class="application-card">
-              <h3>Допомога з продуктами</h3>
-              <p>
-                Харків, район Салтівка. Мати з двома дітьми потребує продуктовий
-                набір.
-              </p>
-              <a href="{% url 'detail_zayavki' %}" class="button-link">Детальніше</a>
-            </div>
-            <div class="application-card">
-              <h3>Потрібен теплий одяг</h3>
-              <p>
-                Житомир, центр. Людина без постійного місця проживання потребує
-                куртку та взуття.
-              </p>
-              <a href="{% url 'detail_zayavki' %}" class="button-link">Детальніше</a>
-            </div>
-            <div class="application-card">
-              <h3>Допомога з оплатою комунальних</h3>
-              <p>
-                Дніпро, вул. Енергії. Пенсіонер не в змозі самостійно оплатити
-                рахунки за газ.
-              </p>
-              <a href="{% url 'detail_zayavki' %}" class="button-link">Детальніше</a>
-            </div>
+            {% for req in requests %}
+              <div class="application-card">
+                <p><a href="{% url 'user_profile' username=req.requester.username %}">
+                    {{ req.requester.username }}
+                </a></p>            
+                <h3>{{ req.title }}</h3>
+                <p>{{ req.description|truncatewords:20 }}</p>
+                <p><strong>Місце:</strong> {{ req.location }}</p>
+                <p><small>{{ req.created_at|date:"d.m.Y" }}</small></p>
+                  {% if req.pk %}
+                    <button onclick="window.location.href='{% url 'detail_zayavki' pk=req.pk %}'" class="details-button">Детальніше</button>
+                  {% else %}
+                    <span>Невірна заявка</span>
+                  {% endif %}
+                {% if request.user.is_authenticated and not req.accepted_by %}
+                  <form method="post" action="{% url 'accept_request' req.id %}" class="accept-form">
+                    {% csrf_token %}
+                    <button type="submit" class="accept-button">Прийняти заявку</button>
+                  </form>
+                {% endif %}
+              </div>
+            {% empty %}
+              <p>Немає активних заявок.</p>
+            {% endfor %}
           </div>
         </div>
-      </section>
+      </div>
+
+      <!-- Модальне вікно для створення заявки -->
+      <div class="modal fade" id="addRequestModal" tabindex="-1" aria-labelledby="addRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form id="helpRequestForm">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addRequestModalLabel">Нова заявка</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+              </div>
+              <div class="modal-body">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div id="form-errors" class="text-danger"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit">Надіслати</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </main>
+
+    <script>
+      $(document).ready(function(){
+          // Підтвердження прийняття заявки
+          $('form.accept-form').on('submit', function(e) {
+              e.preventDefault();
+              
+              // Створюємо модальне вікно підтвердження
+              const confirmationModal = $(
+                `<div class="confirmation-modal">
+                  <div class="confirmation-dialog">
+                    <h5>Підтвердження</h5>
+                    <p>Ви впевнені, що хочете прийняти цю заявку?</p>
+                    <div class="confirmation-buttons">
+                      <button class="cancel-btn">Скасувати</button>
+                      <button class="confirm-btn">Підтвердити</button>
+                    </div>
+                  </div>
+                </div>`
+              );
+              
+              // Додаємо модальне вікно на сторінку
+              $('body').append(confirmationModal);
+              confirmationModal.show();
+              
+              // Обробник кнопки скасування
+              confirmationModal.find('.cancel-btn').on('click', function() {
+                  confirmationModal.remove();
+              });
+              
+              // Обробник кнопки підтвердження
+              confirmationModal.find('.confirm-btn').on('click', function() {
+                  // Відправляємо форму
+                  e.target.submit();
+                  confirmationModal.remove();
+              });
+          });
+  
+          // AJAX код для форми допомоги
+          $('#helpRequestForm').on('submit', function(e){
+              e.preventDefault();
+              $.ajax({
+                  type: 'POST',
+                  url: "{% url 'create_help_request' %}",
+                  data: $(this).serialize(),
+                  success: function(response){
+                      if (response.success) {
+                          $('#addRequestModal').modal('hide');
+                          location.reload();
+                      } else {
+                          let errorText = '';
+                          $.each(response.errors, function(key, value){
+                              errorText += '<strong>' + key + '</strong>: ' + value + '<br>';
+                          });
+                          $('#form-errors').html(errorText);
+                      }
+                  },
+                  error: function(){
+                      alert('Помилка при надсиланні форми');
+                  }
+              });
+          });
+      });
+    </script>
 
     <footer>
       <div class="container">

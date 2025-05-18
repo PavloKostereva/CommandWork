@@ -75,9 +75,6 @@ header .profile a:hover {
 }
 
 
-
-
-
 /* === Main === */
 .intro-section {
     display: flex;
@@ -146,13 +143,6 @@ header .profile a:hover {
 .info-card p {
     font-size: 0.95rem;
     color: #000000;
-}
-
-/* Адаптація для мобільних */
-@media (max-width: 768px) {
-    .info-card {
-        flex: 1 1 100%;
-    }
 }
 
 
@@ -271,3 +261,47 @@ footer .copyright {
 }
 
 /*кінець футеру--------------------------------------------------------------------------------*/
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navigation ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .intro-section {
+    flex-direction: column;
+  }
+
+  .info-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .profile {
+    align-self: flex-end;
+  }
+
+  footer {
+        padding: 15px;
+    }
+
+    .footer-top,
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .social-contacts {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+}
